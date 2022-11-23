@@ -1,0 +1,39 @@
+Drug,Classes,Group
+Amoxicillin,Penicillin,Beta Lactams
+Ampicillin,Penicillin,Beta Lactams
+Oxacillin,Penicillin,Beta Lactams
+Penicillin,Penicillin,Beta Lactams
+Cefalotin,Cephalosporins (1st),Beta Lactams
+Cephalosporins-BS,Cephalosporins (1st),Beta Lactams
+Cefoxitin,Cephalosporins (2nd),Beta Lactams
+Cefuroxime,Cephalosporins (2nd),Beta Lactams
+Cefuroxime axetil,Cephalosporins (2nd),Beta Lactams
+Cefotaxime,Cephalosporins (3rd),Beta Lactams
+Ceftazidime,Cephalosporins (3rd),Beta Lactams
+Cefepime,Cephalosporins (4th),Beta Lactams
+Aztreonam,Monobactams,Beta Lactams
+Carbapenem,Carbapenems,Beta Lactams
+Ertapenem,Carbapenems,Beta Lactams
+Imipenem,Carbapenems,Beta Lactams
+Meropenem,Carbapenems,Beta Lactams
+Ciprofloxacin,Quinolones,DNA topoisomerases
+Fluoroquinolones,Quinolones,DNA topoisomerases
+Levofloxacin,Quinolones,DNA topoisomerases
+Amikacin,Aminoglycosides,Protein synthesis 
+Gentamicin,Aminoglycosides,Protein synthesis 
+Streptomycin,Aminoglycosides,Protein synthesis 
+Tobramycin,Aminoglycosides,Protein synthesis 
+Linezolid,Oxazolidinones,Protein synthesis 
+Clindamycin,Lincosamides,Protein synthesis 
+Erythromycin,MacrolIdes,Protein synthesis 
+Tetracycline,Tetracyclines (1st),Protein synthesis 
+Tigecycline,Tetracyclines (3rd),Protein synthesis 
+Amoxi-Clav,Penicillins Combination,Comb
+Pip-Taz,Penicillins Combination,Comb
+Trim-Sulf,Sulfonamides combination,Comb
+Daptomycin,Lipopeptide,Other 
+Fusidic acid,Fusidane,Other 
+Rifampicin,Rifamycins,Other 
+Teicoplanin,Glycopeptide,Other 
+Trimethoprim,"Diaminopyrimidines",Other 
+Vancomycin,Glycopeptide,Other 
