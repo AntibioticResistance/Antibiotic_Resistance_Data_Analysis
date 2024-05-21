@@ -1,16 +1,16 @@
-##With this R script, I will find out if that simulated SI values also drop as sample sizes get smaller. 
-##Then normalize by dividing by the theoretical max value of SID
+##With this R script, I will normalize Gini Simpson Index by dividing by the theoretical max value of GSI 
+##Use GLM to see effect of fraction resistant 
 ##Aug 2022
+##
 
-############ To calculate random SID values ##############
 #############################################################################
 
 library(ggplot2)
 
-setwd("~/Dropbox/2017_CodeLab/BacterialResistanceProject_2020/2020_CandaceUTIpopgen/DataAnalysis")
+setwd("~/Documents/GitHub/Antibiotic_Resistance_Data_Analysis")
 Data<-read.csv("Output/DivIndices.csv")
 Data$Dataset<-factor(Data$Dataset, levels = 
-                      c("Yamaji_1999", "Yamaji_2016", "Addams-Sapper", "Kallonen_BSAC", "Kallonen_CUH", "Wurster" , "Manara", "Galloway" ))
+                       c("Yamaji_1999", "Yamaji_2016", "Addams-Sapper", "Kallonen_BSAC", "Kallonen_CUH", "Wurster" , "Manara", "Galloway" ))
 
 
 #I need to add "FracRes"       "TheorMaxGSI"    "GSINormalizedR"
@@ -29,6 +29,7 @@ sink(file = "Output/Figure3_lm_output_GSINormalizedR.txt")
 summary(modglm)
 sink(file = NULL)
 
+#Make a dataframe with the coefficients from the glm model
 dummy2 <- data.frame(Dataset = levels(Data$Dataset), Z = c(0,modglm$coefficients[3:9]))
 dummy2$Dataset <- factor(dummy2$Dataset)
 
@@ -56,10 +57,4 @@ dev.off()
 
 write.csv(x = Data, file = "Output/DataNormelizedGSI.csv")
 
-#to create a csv file with all the results created above and date in file name, and stores in "Old" folder 
-#file.copy(from=paste("Output/OverviewDatasets",".csv", sep = ""), to=paste("Output/Old/Archived_OverviewDatasets",Sys.Date(),".csv", sep = ""))
-
-#to create a csv file with all the results created above, and stores in "Output" folder
-#03/10/2022: Anjani added (sep = "") to remove space in the file name
-#write.csv(x = OverviewDatasets, file = paste("Output/OverviewDatasets",".csv", sep = ""), row.names = FALSE)
 
