@@ -1,10 +1,10 @@
-setwd("~/Dropbox/2017_CodeLab/BacterialResistanceProject_2020/2020_CandaceUTIpopgen/DataAnalysis")
+setwd("~/Documents/GitHub/Antibiotic_Resistance_Data_Analysis")
 
 library(reshape2)
 library(dplyr)
 library(ggplot2)
 
-#used "DivIndices.csv" created by Pleuni i.e created by "Simpson_Index_WithFunctions.R" Rscripts
+#read "DivIndices.csv" 
 DivIndices <- read.csv(file = "Output/DivIndices.csv")
 
 #to remove the "_" in the name of the datasets and replace with empty space, 
@@ -29,13 +29,14 @@ DivIndices$FracRes <- DivIndices$NumRes / (DivIndices$NumRes + DivIndices$NumSus
 ######################################################################################################## 
 #to make barplot using ggplot
 
-#selecct 3 required columns from dataframe; "DivIndices"
+#selecct 6 required columns from dataframe; "DivIndices"
 df1 <- data.frame(DivIndices$Dataset ,DivIndices$Drug,DivIndices$star, DivIndices$GSIvalueS, DivIndices$GSIvalueR, DivIndices$FracRes) 
 
+#make a column with info about how high the p-value indicator should be above the bars
 df1$heightofstars<- 0
 for (i in 1:nrow(df1)){df1$heightofstars[i] = max(df1$DivIndices.GSIvalueS[i], df1$DivIndices.GSIvalueR[i])}
 
-#merge two colums into one using melt function in order to plot side-by-side in ggplot
+#merge two columns into one using melt function in order to plot side-by-side in ggplot
 df2 <- melt(df1, id=c("DivIndices.Dataset", "DivIndices.Drug", "DivIndices.star", "heightofstars", "DivIndices.FracRes"))
 #change name of the columns
 colnames(df2)[1:7]<-c("Dataset","Drug","star", "heigthofstar", "FracRes", "Response", "SI_values")
@@ -56,8 +57,8 @@ DFForBarplots <- df2 %>%
 #to make barplot using ggplot
 png(paste0("Output/", "Figure2A_GiniSimpson", ".png"), width = 350, height = 150, units='mm', res = 300)
 P<-ggplot(DFForBarplots) +
-  geom_rect(aes( xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf), fill= "#F5F5F5",alpha= 0.5,
-            colour = "black",size = 0.7) + 
+  geom_rect(aes(xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf), fill= "#F5F5F5",alpha= 0.5,
+            colour = "black",lwd = 0.7) + 
   geom_bar(aes(x=as.factor(order), y=SI_values,fill=Response),stat='identity', position='dodge')+ 
   ylim(0,1)+
   ylab(" Gini Simpson Index")+ xlab("Drugs")+
@@ -72,12 +73,12 @@ P<-ggplot(DFForBarplots) +
         axis.line = element_line(colour = "black"),
         strip.text.x = element_text(size = 9, face = "bold"))+
   scale_x_discrete(breaks= seq(2 , max(DFForBarplots$order), by = 2) ,
-                   labels=DFForBarplots$Drug[seq(2 , max(DFForBarplots$order), by = 2)])
+                   labels=DFForBarplots$Drug[seq(2 , max(DFForBarplots$order), by = 2)])+
+  geom_text(aes(label=star, x=as.factor(order), y=heigthofstar), vjust=-0.2, hjust = -0.1, size = 2 )+
+  theme(legend.position = "none")
 
-P <- P + geom_text(aes(label=star, x=as.factor(order), y=heigthofstar), vjust=-0.2, hjust = -0.1, size = 2 )
-P + theme(legend.position = "none")
+P
 dev.off()
-
 
 #to make barplot using ggplot
 png(paste0("Output/", "Figure2B_FracRes", ".png"), width = 350, height = 150, units='mm', res = 300)
@@ -85,7 +86,7 @@ png(paste0("Output/", "Figure2B_FracRes", ".png"), width = 350, height = 150, un
 P<-ggplot(DFForBarplots[DFForBarplots$Response == "DivIndices.GSIvalueS",]) +
   geom_rect(aes( xmin=-Inf, xmax=Inf, ymin=-Inf, ymax=Inf), fill= "#F5F5F5",alpha= 0.5,
             colour = "black",size = 0.7) + 
-  geom_bar( aes(x=as.factor(order), y=FracRes),stat='identity', position='dodge')+ 
+  geom_bar(aes(x=as.factor(order), y=FracRes),stat='identity', position='dodge')+ 
   ylim(0,1)+
   ylab("Fraction Resistant")+ xlab("Drugs")+
   facet_grid( ~ Dataset, scales = "free_x", space = "free", labeller = label_wrap_gen(10))+ 
