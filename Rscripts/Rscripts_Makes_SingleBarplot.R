@@ -1,4 +1,4 @@
-setwd("~/Dropbox/2017_CodeLab/BacterialResistanceProject_2020/2020_CandaceUTIpopgen/DataAnalysis")
+setwd("~/Documents/GitHub/Antibiotic_Resistance_Data_Analysis")
 
 library(RColorBrewer)
 myPalette = brewer.pal(6, "Pastel1")
