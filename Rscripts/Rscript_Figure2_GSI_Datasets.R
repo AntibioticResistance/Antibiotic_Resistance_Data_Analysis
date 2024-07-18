@@ -15,8 +15,8 @@ DivIndices$Dataset <- gsub("-", " ", DivIndices$Dataset)
 #to add asterisk instead of pvalue
 DivIndices$star<-"n.s."
 DivIndices$star[DivIndices$GSIpvalue > .05]  <- "n.s."
-DivIndices$star[DivIndices$GSIpvalue <= .05]  <- "*"
-DivIndices$star[DivIndices$GSIpvalue <= .01]  <- "**"
+DivIndices$star[DivIndices$GSIpvalue <= .05]  <- " *"
+DivIndices$star[DivIndices$GSIpvalue <= .01]  <- " **"
 DivIndices$star[DivIndices$GSIpvalue <= .001] <- "***"
 
 DatasetList = unique(DivIndices$Dataset)
@@ -74,11 +74,13 @@ P<-ggplot(DFForBarplots) +
         strip.text.x = element_text(size = 9, face = "bold"))+
   scale_x_discrete(breaks= seq(2 , max(DFForBarplots$order), by = 2) ,
                    labels=DFForBarplots$Drug[seq(2 , max(DFForBarplots$order), by = 2)])+
-  geom_text(aes(label=star, x=as.factor(order), y=heigthofstar), vjust=-0.2, hjust = -0.1, size = 2 )+
-  theme(legend.position = "none")
+  geom_text(aes(label=star, x=as.factor(order), y=heigthofstar), vjust=0., hjust = 0.2, size = 3)+
+  theme(legend.position = "bottom", legend.justification = "right", legend.title = element_text(colour="white", size=10, 
+                                                             face="bold"))
 
 P
 dev.off()
+
 
 #to make barplot using ggplot
 png(paste0("Output/", "Figure2B_FracRes", ".png"), width = 350, height = 150, units='mm', res = 300)
