@@ -1,6 +1,10 @@
 
 Call:
-glm(formula = GSINormalizedR ~ FracRes + Dataset, data = Data)
+lm(formula = GSINormalizedR ~ FracRes + Dataset, data = Data)
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.293371 -0.078415  0.008917  0.101281  0.315668 
 
 Coefficients:
                      Estimate Std. Error t value Pr(>|t|)    
@@ -16,12 +20,8 @@ DatasetGalloway       0.15565    0.12957   1.201  0.23542
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-(Dispersion parameter for gaussian family taken to be 0.02155965)
-
-    Null deviance: 1.6929  on 57  degrees of freedom
-Residual deviance: 1.0564  on 49  degrees of freedom
+Residual standard error: 0.1468 on 49 degrees of freedom
   (1 observation deleted due to missingness)
-AIC: -47.725
-
-Number of Fisher Scoring iterations: 2
+Multiple R-squared:  0.376,	Adjusted R-squared:  0.2741 
+F-statistic:  3.69 on 8 and 49 DF,  p-value: 0.001931
 
