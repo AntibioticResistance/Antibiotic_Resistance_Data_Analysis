@@ -46,8 +46,8 @@ ListToRemove <- c("-", "Minor", "ND " ,  "OC39" , "U1"  ,  "U10"  , "U11",   "U1
 #######################
 
 for (g in 1:length(ResDocs)){
-  print(drugRfiles[g])
-  DataSet<-read.csv(paste0("Data/",drugRfiles[g]), stringsAsFactors = F)#, row.names = 1
+  print(ResDocs[g])
+  DataSet<-read.csv(paste0("Data/",ResDocs[g]), stringsAsFactors = F)#, row.names = 1
   ## List of ST to remove (because unclear if they are ST)
   DataSet<-DataSet[which(!DataSet$ST %in% ListToRemove),] #May 2024 Pleuni removed bunch of ST categories. 
   #to change the name of antibiotics that are different in different datasets
@@ -60,7 +60,7 @@ for (g in 1:length(ResDocs)){
   DataSet$Drug[DataSet$Drug == "Tetracyclin"]<- "Tetracycline"
   DataSet$Drug[DataSet$Drug == "Penicillin G"]<- "Penicillin"
   
-  dname<-gsub("_ST_Data.csv",'',drugRfiles[g]) #Get the study name
+  dname<-gsub("_ST_Data.csv",'',ResDocs[g]) #Get the study name
   DrugList<-sort(unique(DataSet$Drug)) #get the list of drugs used in this study
   
   sum_numRes<- DataSet %>% group_by(Drug) %>% summarize(sum = sum(NumRes))
