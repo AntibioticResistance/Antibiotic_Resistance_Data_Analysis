@@ -1,5 +1,5 @@
 ##With this R script, I will normalize Gini Simpson Index by dividing by the theoretical max value of GSI 
-##Use GLM to see effect of fraction resistant 
+##Use LM to see effect of fraction resistant 
 ##Aug 2022
 ##
 
@@ -22,15 +22,15 @@ for (j in 1:nrow(Data)){
 } #calculating max SI value
 Data$GSINormalizedR<-Data$GSIvalueR/Data$TheorMaxGSI
 
-modglm<-glm(GSINormalizedR ~ FracRes + Dataset,  data = Data) #ADD Drug class to the model 
-summary(modglm) 
+modlm<-lm(GSINormalizedR ~ FracRes + Dataset,  data = Data) 
+summary(modlm) 
 
 sink(file = "Output/Figure3_lm_output_GSINormalizedR.txt")
-summary(modglm)
+summary(modlm)
 sink(file = NULL)
 
-#Make a dataframe with the coefficients from the glm model
-dummy2 <- data.frame(Dataset = levels(Data$Dataset), Z = c(0,modglm$coefficients[3:9]))
+#Make a dataframe with the coefficients from the lm model
+dummy2 <- data.frame(Dataset = levels(Data$Dataset), Z = c(0,modlm$coefficients[3:9]))
 dummy2$Dataset <- factor(dummy2$Dataset)
 
 png("Output/Figure3_GSINormalized_values_Res.png",  width=150, height=150, units = "mm", res = 300)
@@ -51,7 +51,7 @@ g<- g +
         axis.line = element_line(colour = "black"))
 g <- g +   theme(legend.position="none")
 
-g +  geom_abline(data = dummy2, aes(intercept = Z + modglm$coefficients[1], slope = modglm$coefficients[2]), color= "darkgrey")
+g +  geom_abline(data = dummy2, aes(intercept = Z + modlm$coefficients[1], slope = modlm$coefficients[2]), color= "darkgrey")
 
 dev.off()
 
